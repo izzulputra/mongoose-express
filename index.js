@@ -27,13 +27,15 @@ app.use(methodOverride('_method'))
 const categories = ['fruit', 'vegetable', 'dairy'];
 
 app.get('/products', async (req, res) => {
-    const { category } = req.query;
+    const { category } = req.query; //membuat query
+    //jika menggunakan kategori dan ada maka temnukan semua produk sesuai dengan kategori
     if (category) {
         const products = await Product.find({ category })
         res.render('products/index', { products, category })
     } else {
         const products = await Product.find({})
         res.render('products/index', { products, category: 'All' })
+        //All digunakan untuk mengganti kategori didalam all produk di indeks.ejs sebuah trik untuk mengakali jika tidak all maka yang keluar adalah produk kategori
     }
 })
 
