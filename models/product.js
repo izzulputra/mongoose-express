@@ -19,6 +19,7 @@ const productSchema = new mongoose.Schema({
     }
 })
 
+//mengakses dan membuat collection
 const Product = mongoose.model('Product', productSchema);
-
+//agar collections dapat di akses maka di export terlebih dahulu. kemudian di import pada file index. untuk diproses
 module.exports = Product;
