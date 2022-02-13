@@ -1,3 +1,5 @@
+//File yang digunakan untuk membentuk schema dan prasyarat untuk bisa diakses. kemudian di export agar bisa diambil oleh seeds.js
+
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({

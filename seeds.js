@@ -1,3 +1,5 @@
+//Digunakan untuk memanipulasi data, menambah menghapus dan update data didalam product. ini tidak terhubung ke file index makanya index tidak menghubungkan ke file seeds melainkan ke file product saja
+
 const mongoose = require('mongoose');
 const Product = require('./models/product');
 
