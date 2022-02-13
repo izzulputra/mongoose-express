@@ -60,12 +60,14 @@ app.get('/products/:id/edit', async (req, res) => {
     const { id } = req.params;
     const product = await Product.findById(id);
     res.render('products/edit', { product, categories })
+    //merender menuju halaman edit dengan cara menemukan id dari req.params kemudian digunakan. untuk memanggil ejs edit
 })
 
 app.put('/products/:id', async (req, res) => {
     const { id } = req.params;
     const product = await Product.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
     res.redirect(`/products/${product._id}`);
+    //product._id dapat digunakan karena file product sudah dalam ranah mongo db. harusnya tetap menggunakan id dari req.params. selain menggunakan mongoose dan monggodb maka tidak bisa 
 })
 
 app.delete('/products/:id', async (req, res) => {
