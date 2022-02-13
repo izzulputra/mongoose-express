@@ -42,8 +42,11 @@ app.get('/products/new', (req, res) => {
 
 app.post('/products', async (req, res) => {
     const newProduct = new Product(req.body);
+    //new digunakan untuk menyimpan argument req body kedalam collection
     await newProduct.save();
+    //save digunakan untuk memasukkan data benar2 kedalam database kita
     res.redirect(`/products/${newProduct._id}`)
+    //redirect ke halaman yang baru saja ditambahkan
 })
 
 app.get('/products/:id', async (req, res) => {
