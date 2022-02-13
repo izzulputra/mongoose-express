@@ -48,8 +48,9 @@ app.post('/products', async (req, res) => {
 
 app.get('/products/:id', async (req, res) => {
     const { id } = req.params;
-    const product = await Product.findById(id)
-    res.render('products/show', { product })
+    //karena hasil dari req params adalah object maka harus di destructuring agar bisa diakses dibawah ini.
+    const product = await Product.findById(id) // ID sudah dalam bentuk angka karena sudah di destructuring di req.params
+    res.render('products/show', { product }) // product juga dalam bentuk object maka perlu di destructuring untuk diambil
 })
 
 app.get('/products/:id/edit', async (req, res) => {
