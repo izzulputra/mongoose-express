@@ -42,13 +42,19 @@ app.post('/farms', async (req,res)=> {
 })
 
 app.get('/farms/:id', async (req, res) => {
-    const farm = await Farm.findById(req.params.id);
+    const farm = await Farm.findById(req.params.id).populate('products');
     res.render('farms/show', { farm });
 })
 
-app.get('/farms/:id/products/new', (req, res) => {
+app.delete('/farms/:id', async (req, res) => {
+    const farm = await Farm.findByIdAndDelete(req.params.id);
+    res.redirect('/farms')
+})
+
+app.get('/farms/:id/products/new', async (req, res) => {
     const {id} = req.params;
-    res.render('products/new', {categories, id})
+    const farm = await Farm.findById(id);
+    res.render('products/new', {categories, farm})
 })
 
 app.post('/farms/:id/products', async (req,res) => {
@@ -60,7 +66,7 @@ app.post('/farms/:id/products', async (req,res) => {
     product.farm = farm;
     await farm.save();
     await product.save();
-    res.send(farm)
+    res.redirect(`/farms/${id}`)
 })
 
 
@@ -100,7 +106,8 @@ app.post('/products', async (req, res) => {
 app.get('/products/:id', async (req, res) => {
     const { id } = req.params;
     //karena hasil dari req params adalah object maka harus di destructuring agar bisa diakses dibawah ini.
-    const product = await Product.findById(id) // ID sudah dalam bentuk angka karena sudah di destructuring di req.params
+    const product = await Product.findById(id).populate('farm', 'name'); // populate didalam model schema product dilihat di paling bawah untuk ref
+     // ID sudah dalam bentuk angka karena sudah di destructuring di req.params
     res.render('products/show', { product }) // product juga dalam bentuk object maka perlu di destructuring untuk diambil
 })
 
